@@ -23,10 +23,9 @@ class Subject:
             else:
                 print("Assignment " + assignmentToDelete + " deleted.")
 
+
     def markAsDone(self, changeStatus):
-        print("Inside Mark As Done")
-        doesAssignmentExist = False
-        checkAssignment = False
+        flag = False
 
         with open("../dataFiles/user.txt", "r+") as f:
             allLines = f.readlines()
@@ -37,20 +36,16 @@ class Subject:
                 assignment = partitionPoint[0]
                 if assignment == changeStatus:
                     if status == 'f\n':
-                        print("inside change status to true")
-                        checkAssignment = True
+                        f.write('t\n')
+                    if status == 't\n':
+                        f.write('f\n')
 
+                    print("Status changed")
+                    flag = True
 
-                    else:
-                        print("inside change status to false")
-                        checkAssignment = True
-            if checkAssignment == False:
-                doesAssignmentExist = True
-
-            if doesAssignmentExist == True:
+            if flag == False:
                 print("assignment does not exist")
-            else:
-                print("assignment found")
+
 
             f.close()
 
