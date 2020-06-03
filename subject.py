@@ -28,26 +28,31 @@ class Subject:
         flag = False
 
         with open("../dataFiles/user.txt", "r+") as f:
-            allLines = f.readlines()
-            f.seek(0)
-            for line in allLines:
+
+            while True:
+                line = f.readline()
+
                 partitionPoint = line.partition(":")
                 status = partitionPoint[2]
                 assignment = partitionPoint[0]
                 if assignment == changeStatus:
+                    f.seek(-2, 1)
                     if status == 'f\n':
                         f.write('t\n')
                     if status == 't\n':
                         f.write('f\n')
 
-                    print("Status changed")
                     flag = True
+                    break
+
+                if not line:
+                    break
+            f.close()
 
             if flag == False:
-                print("assignment does not exist")
-
-
-            f.close()
+                print("Assignment " + changeStatus + " not found")
+            else:
+                print("Assignment " + changeStatus + " updated.")
 
     def listAssignments(self):
         print("Inside List Assignments")
